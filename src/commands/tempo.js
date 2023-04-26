@@ -1,4 +1,4 @@
-const dates = require("../../dates.json")
+const dates = require("../dates.json")
 const { SlashCommandBuilder } = require("discord.js")
 
 module.exports = {
