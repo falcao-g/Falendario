@@ -2,7 +2,6 @@ const dates = require("../dates.json")
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 
 module.exports = {
-	developer: true,
 	data: new SlashCommandBuilder()
 		.setName("tempo")
 		.setDescription("Quanto tempo falta?")
@@ -24,6 +23,7 @@ module.exports = {
 			)
 			let closestDate = null
 			let closestTitle = null
+			let closestDescription = null
 			let daysUntil = null
 			for (const date of dates.dates) {
 				const eventDate = new Date(date.date)
@@ -35,6 +35,7 @@ module.exports = {
 				if (closestDate === null || eventDate < closestDate) {
 					closestDate = eventDate
 					closestTitle = date.title
+					closestDescription = date.description
 				}
 			}
 
@@ -55,6 +56,7 @@ module.exports = {
 					embed.setTitle(
 						`Faltam ${daysUntil} dias para a ${closestTitle} :stopwatch:`
 					)
+					embed.setDescription(closestDescription)
 				}
 			}
 			interaction.editReply({ embeds: [embed] })
