@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js")
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 
 module.exports = {
 	developer: true,
@@ -9,11 +9,19 @@ module.exports = {
 	execute: async ({ interaction }) => {
 		await interaction.deferReply()
 		try {
+			const embed = new EmbedBuilder()
+				.setTitle("Calendário Acadêmico")
+				.setDescription(
+					"Acesse o calendário acadêmico pelo link: https://prograd.ufms.br/calendario-academico/"
+				)
+				.setColor("#FF435B")
+				.setFooter({ text: "❤️ by grupo 8" })
+
 			interaction.editReply({
-				content: `Acesse o calendário acadêmico pelo link: https://prograd.ufms.br/calendario-academico/`,
+				embeds: [embed],
 			})
 		} catch (error) {
-			console.error(`tools: ${error}`)
+			console.error(`academico: ${error}`)
 			interaction.editReply({
 				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
 			})

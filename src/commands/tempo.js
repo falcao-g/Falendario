@@ -1,5 +1,5 @@
 const dates = require("../dates.json")
-const { SlashCommandBuilder } = require("discord.js")
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 
 module.exports = {
 	developer: true,
@@ -16,7 +16,11 @@ module.exports = {
 					Number(temp.getMonth() + 1) < 10
 						? "0" + Number(temp.getMonth() + 1)
 						: Number(temp.getMonth() + 1)
-				}-${temp.getDate()}T00:00:00.000Z`
+				}-${
+					Number(temp.getDate()) < 10
+						? "0" + Number(temp.getDate())
+						: temp.getDate()
+				}T00:00:00.000Z`
 			)
 			let closestDate = null
 			let closestTitle = null
@@ -33,27 +37,29 @@ module.exports = {
 					closestTitle = date.title
 				}
 			}
+
+			const embed = new EmbedBuilder()
+				.setColor("#FF435B")
+				.setFooter({ text: "❤️ by grupo 8" })
+
 			if (closestDate === null) {
-				interaction.editReply({
-					content: `O calendário está limpo! :grin:`,
-				})
+				embed.setTitle(`O calendário está limpo! :grin:`)
 			} else {
 				daysUntil = Math.floor(
 					(closestDate - currentDate) / (1000 * 60 * 60 * 24)
 				)
 
 				if (daysUntil === 0) {
-					interaction.editReply({
-						content: `Hoje é o dia da ${closestTitle}!`,
-					})
+					embed.setTitle(`Hoje é o dia da ${closestTitle}!`)
 				} else {
-					interaction.editReply({
-						content: `Faltam ${daysUntil} dias para a ${closestTitle} :stopwatch:`,
-					})
+					embed.setTitle(
+						`Faltam ${daysUntil} dias para a ${closestTitle} :stopwatch:`
+					)
 				}
 			}
+			interaction.editReply({ embeds: [embed] })
 		} catch (error) {
-			console.error(`tools: ${error}`)
+			console.error(`tempo: ${error}`)
 			interaction.editReply({
 				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
 			})
