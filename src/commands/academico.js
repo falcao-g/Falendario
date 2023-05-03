@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 
 module.exports = {
-	developer: true,
 	data: new SlashCommandBuilder()
 		.setName("academico")
 		.setDescription("Será que é feriado? Confira o calendário acadêmico!")

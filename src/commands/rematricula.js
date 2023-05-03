@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
 
 module.exports = {
-	developer: true,
 	data: new SlashCommandBuilder()
 		.setName("rematricula")
 		.setDescription("Está na hora, use esse comando para fazer a rematrícula!")
