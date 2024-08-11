@@ -33,22 +33,18 @@ function msToTime(ms) {
 	return time.trimEnd()
 }
 
-async function getRoleColor(guild, member_id) {
-	try {
-		cor = guild.members.cache.get(member_id).displayColor
-		return cor
-	} catch (err) {
-		return "Random"
-	}
-}
-
 function paginate() {
 	const __embeds = []
+	const __components = []
 	let cur = 0
 	let traverser
 	return {
 		add(...embeds) {
 			__embeds.push(...embeds)
+			return this
+		},
+		addComponents(...components) {
+			__components.push(...components)
 			return this
 		},
 		setTraverser(tr) {
@@ -67,9 +63,20 @@ function paginate() {
 			}
 		},
 		components() {
+			if (__components.length == 0) {
+				return {
+					embeds: [__embeds.at(cur)],
+					components: [new ActionRowBuilder().addComponents(...traverser)],
+					fetchReply: true,
+				}
+			}
+
 			return {
 				embeds: [__embeds.at(cur)],
-				components: [new ActionRowBuilder().addComponents(...traverser)],
+				components: [
+					new ActionRowBuilder().addComponents(__components.at(cur)),
+					new ActionRowBuilder().addComponents(...traverser),
+				],
 				fetchReply: true,
 			}
 		},
@@ -78,6 +85,5 @@ function paginate() {
 
 module.exports = {
 	msToTime,
-	getRoleColor,
 	paginate,
 }
