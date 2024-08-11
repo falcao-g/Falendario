@@ -1,22 +1,16 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js")
-const { loadCommands } = require("../handlers/commandHandler")
-const { loadEvents } = require("../handlers/eventHandler")
+const { loadCommands } = require("../handlers/commands.js")
+const { loadEvents } = require("../handlers/events.js")
 
 module.exports = {
 	developer: true,
 	data: new SlashCommandBuilder()
 		.setName("tools")
-		.setDescription("Tools for Falbot developers")
+		.setDescription("Tools for Falendario developers")
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.setDMPermission(false)
-		.addSubcommand((subcommand) =>
-			subcommand.setName("reload_events").setDescription("reload your events")
-		)
-		.addSubcommand((subcommand) =>
-			subcommand
-				.setName("reload_commands")
-				.setDescription("reload your commands")
-		),
+		.addSubcommand((subcommand) => subcommand.setName("reload_events").setDescription("reload your events"))
+		.addSubcommand((subcommand) => subcommand.setName("reload_commands").setDescription("reload your commands")),
 	execute: async ({ interaction, instance, client }) => {
 		await interaction.deferReply({ ephemeral: true })
 		try {

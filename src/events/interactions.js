@@ -5,22 +5,16 @@ module.exports = {
 
 		if (interaction.user.bot) {
 			interaction.reply({
-				content: instance.getMessage(guildUser, "YOU_ARE_BOT"),
+				content: "Bots não podem usar comandos",
 				ephemeral: true,
 			})
 			return
 		}
 
-		if (
-			interaction.isChatInputCommand() ||
-			interaction.isContextMenuCommand()
-		) {
+		if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
 			const command = client.commands.get(interaction.commandName)
 
-			if (
-				command.developer &&
-				!instance.config.devs.includes(interaction.user.id)
-			) {
+			if (command.developer && !instance.config.devs.includes(interaction.user.id)) {
 				return interaction.reply({
 					content: "Só os desenvolvedores pode usar esse comando",
 					ephemeral: true,
