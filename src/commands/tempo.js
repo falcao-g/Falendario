@@ -1,70 +1,57 @@
-const dates = require("../dates.json")
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
+const { SlashCommandBuilder, time, ButtonBuilder } = require("discord.js")
+const guildSchema = require("../schemas/guild.js")
+const { paginate } = require("../utils/functions.js")
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("tempo")
-		.setDescription("Quanto tempo falta?")
-		.setDMPermission(true),
-	execute: async ({ interaction }) => {
+	data: new SlashCommandBuilder().setName("tempo").setDescription("Quanto tempo falta?").setDMPermission(true),
+	execute: async ({ interaction, instance, guild }) => {
 		await interaction.deferReply()
-		try {
-			const temp = new Date()
-			const currentDate = new Date(
-				`${temp.getFullYear()}-${
-					Number(temp.getMonth() + 1) < 10
-						? "0" + Number(temp.getMonth() + 1)
-						: Number(temp.getMonth() + 1)
-				}-${
-					Number(temp.getDate()) < 10
-						? "0" + Number(temp.getDate())
-						: temp.getDate()
-				}T00:00:00.000Z`
-			)
-			let closestDate = null
-			let closestTitle = null
-			let closestDescription = null
-			let daysUntil = null
-			for (const date of dates.dates) {
-				const eventDate = new Date(date.date)
+		const dates = await guildSchema.find({ _id: guild.id }).sort({ "dates.time": 1 })
 
-				if (eventDate < currentDate) {
-					continue // Ignore dates that have already passed
-				}
-
-				if (closestDate === null || eventDate < closestDate) {
-					closestDate = eventDate
-					closestTitle = date.title
-					closestDescription = date.description
-				}
-			}
-
-			const embed = new EmbedBuilder()
-				.setColor("#FF435B")
-				.setFooter({ text: "❤️ by grupo 8" })
-
-			if (closestDate === null) {
-				embed.setTitle(`O calendário está limpo! :grin:`)
-			} else {
-				daysUntil = Math.floor(
-					(closestDate - currentDate) / (1000 * 60 * 60 * 24)
-				)
-
-				if (daysUntil === 0) {
-					embed.setTitle(`Hoje é o dia da ${closestTitle}!`)
-				} else {
-					embed.setTitle(
-						`Faltam ${daysUntil} dias para a ${closestTitle} :stopwatch:`
-					)
-					embed.setDescription(closestDescription)
-				}
-			}
-			interaction.editReply({ embeds: [embed] })
-		} catch (error) {
-			console.error(`tempo: ${error}`)
-			interaction.editReply({
-				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
-			})
+		if (dates.length === 0) {
+			return interaction.editReply("Calendário limpo!")
 		}
+
+		//generate an array of embeds with 9 dates each until the end of the array
+		let embeds = []
+		let embed = instance.createEmbed("#FF435B")
+		let count = 0
+		for (let i = 0; i < dates[0].dates.length; i++) {
+			embed.addFields({
+				name: `${dates[0].dates[i].name} ${time(dates[0].dates[i].time, "R")}`,
+				value: dates[0].dates[i].description,
+				inline: true,
+			})
+
+			count++
+
+			if (count === 5) {
+				embeds.push(embed)
+				embed = instance.createEmbed("#FF435B")
+				count = 0
+			}
+		}
+
+		if (embeds.length === 0) {
+			embeds.push(embed)
+		}
+
+		const paginator = paginate()
+		paginator.add(...embeds)
+		const ids = [`${Date.now()}__left`, `${Date.now()}__right`]
+		paginator.setTraverser([
+			new ButtonBuilder().setEmoji("⬅️").setCustomId(ids[0]).setStyle("Secondary"),
+			new ButtonBuilder().setEmoji("➡️").setCustomId(ids[1]).setStyle("Secondary"),
+		])
+		const message = await interaction.editReply(paginator.components())
+		message.channel.createMessageComponentCollector().on("collect", async (i) => {
+			if (i.customId === ids[0]) {
+				await paginator.back()
+				await i.update(paginator.components())
+			} else if (i.customId === ids[1]) {
+				await paginator.next()
+				await i.update(paginator.components())
+			}
+		})
 	},
 }
