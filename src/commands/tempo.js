@@ -3,7 +3,17 @@ const guildSchema = require("../schemas/guild.js")
 const { paginate } = require("../utils/functions.js")
 
 module.exports = {
-	data: new SlashCommandBuilder().setName("tempo").setDescription("Quanto tempo falta?").setDMPermission(true),
+	data: new SlashCommandBuilder()
+		.setName("tempo")
+		.setNameLocalizations({
+			"en-US": "time",
+			"es-ES": "tiempo",
+		})
+		.setDescription("Quanto tempo falta?")
+		.setDescriptionLocalizations({
+			"en-US": "How much time is left?",
+			"es-ES": "¿Cuánto tiempo queda?",
+		}),
 	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply()
 		try {
@@ -24,7 +34,7 @@ module.exports = {
 			})
 
 			if (dates.length === 0) {
-				return interaction.editReply("Calendário limpo!")
+				return interaction.editReply(instance.getMessage(interaction, "CLEAN_CALENDAR"))
 			}
 
 			//generate an array of embeds with 5 dates each until the end of the array
@@ -62,9 +72,7 @@ module.exports = {
 			})
 		} catch (error) {
 			console.error(`tempo: ${error}`)
-			await interaction.editReply({
-				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
-			})
+			await interaction.editReply(instance.getMessage(interaction, "EXCEPTION"))
 		}
 	},
 }

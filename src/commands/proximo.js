@@ -2,7 +2,17 @@ const { SlashCommandBuilder, time } = require("discord.js")
 const guildSchema = require("../schemas/guild.js")
 
 module.exports = {
-	data: new SlashCommandBuilder().setName("proximo").setDescription("Veja qual o próximo evento marcado"),
+	data: new SlashCommandBuilder()
+		.setName("proximo")
+		.setNameLocalizations({
+			"en-US": "next",
+			"es-ES": "siguiente",
+		})
+		.setDescription("Veja qual o próximo evento marcado")
+		.setDescriptionLocalizations({
+			"en-US": "See what the next scheduled event is",
+			"es-ES": "Ver cuál es el próximo evento programado",
+		}),
 	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply()
 		try {
@@ -10,14 +20,14 @@ module.exports = {
 			var { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
 
 			if (dates.length === 0) {
-				return await interaction.editReply("Calendário limpo!")
+				return await interaction.editReply(instance.getMessage(interaction, "CLEAN_CALENDAR"))
 			}
 
 			//filter dates to only include future events
 			dates = dates.filter((date) => date.time > Date.now())
 
 			if (dates.length === 0) {
-				return await interaction.editReply("Não há eventos futuros marcados!")
+				return await interaction.editReply(instance.getMessage(interaction, "NO_FUTURE_EVENTS"))
 			}
 
 			const embed = instance.createEmbed("#FF435B").addFields({
@@ -25,16 +35,15 @@ module.exports = {
 				value: dates[0].description,
 				inline: true,
 			})
-			if (dates.length > 1) embed.data.fields[0].value += `\n\n*e mais ${dates.length - 1} eventos no futuro*...`
+			if (dates.length > 1)
+				embed.data.fields[0].value += instance.getMessage(interaction, "AND_MORE_EVENTS", { COUNT: dates.length - 1 })
 
 			return await interaction.editReply({
 				embeds: [embed],
 			})
 		} catch (error) {
 			console.error(`proximo: ${error}`)
-			await interaction.editReply({
-				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
-			})
+			await interaction.editReply(instance.getMessage(interaction, "EXCEPTION"))
 		}
 	},
 }
