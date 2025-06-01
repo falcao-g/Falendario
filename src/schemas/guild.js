@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 
 const date = mongoose.Schema({
-	_id: false,
 	name: { type: String, required: true },
 	description: { type: String, required: true },
 	time: { type: Date, required: true },

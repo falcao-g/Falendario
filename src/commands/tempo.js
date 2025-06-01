@@ -8,7 +8,20 @@ module.exports = {
 		await interaction.deferReply()
 		try {
 			const documentID = interaction.guildId || interaction.user.id
-			const { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
+			var { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
+
+			dates = dates.filter((date) => {
+				if (date.time > Date.now()) {
+					return true
+				} else {
+					//remove the outdated dates
+					guildSchema
+						.updateOne({ _id: documentID }, { $pull: { dates: { _id: date._id } } })
+						.catch((err) => console.error(`Erro ao remover data antiga: ${err}`))
+
+					return false
+				}
+			})
 
 			if (dates.length === 0) {
 				return interaction.editReply("Calendário limpo!")
