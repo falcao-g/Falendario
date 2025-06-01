@@ -14,27 +14,34 @@ module.exports = {
 		),
 	execute: async ({ interaction, guild }) => {
 		await interaction.deferReply()
-		const server = await guildSchema.findByIdAndUpdate(
-			guild.id,
-			{
-				_id: guild.id,
-			},
-			{
-				upsert: true,
-				new: true,
-			}
-		)
+		try {
+			const server = await guildSchema.findByIdAndUpdate(
+				guild.id,
+				{
+					_id: guild.id,
+				},
+				{
+					upsert: true,
+					new: true,
+				}
+			)
 
-		const [dia, mes, ano] = interaction.options.getString("data").split("/")
-		const name = interaction.options.getString("nome")
-		const description = interaction.options.getString("descrição")
-		server.dates.push({
-			name,
-			description,
-			time: new Date(`${mes}/${dia}/${ano}`),
-		})
-		server.save()
+			const [dia, mes, ano] = interaction.options.getString("data").split("/")
+			const name = interaction.options.getString("nome")
+			const description = interaction.options.getString("descrição")
+			server.dates.push({
+				name,
+				description,
+				time: new Date(`${mes}/${dia}/${ano}`),
+			})
+			server.save()
 
-		await interaction.editReply(`Evento adicionado com sucesso! ${time(new Date(`${mes}/${dia}/${ano}`), "R")}`)
+			await interaction.editReply(`Evento adicionado com sucesso! ${time(new Date(`${mes}/${dia}/${ano}`), "R")}`)
+		} catch (error) {
+			console.error(`adicionar: ${error}`)
+			await interaction.editReply({
+				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
+			})
+		}
 	},
 }

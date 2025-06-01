@@ -10,9 +10,7 @@ module.exports = {
 		try {
 			const embed = new EmbedBuilder()
 				.setTitle("Calendário Acadêmico")
-				.setDescription(
-					"Acesse o calendário acadêmico pelo link: https://prograd.ufms.br/calendario-academico/"
-				)
+				.setDescription("Acesse o calendário acadêmico pelo link: https://prograd.ufms.br/calendario-academico/")
 				.setColor("#FF435B")
 				.setFooter({ text: "❤️ by grupo 8" })
 
@@ -21,7 +19,7 @@ module.exports = {
 			})
 		} catch (error) {
 			console.error(`academico: ${error}`)
-			interaction.editReply({
+			await interaction.editReply({
 				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
 			})
 		}
