@@ -8,7 +8,7 @@ module.exports = {
 		.setName("tools")
 		.setDescription("Tools for Falendario developers")
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-		.setDMPermission(false)
+		.setContexts("Guild")
 		.addSubcommand((subcommand) => subcommand.setName("re").setDescription("reload your events"))
 		.addSubcommand((subcommand) => subcommand.setName("rc").setDescription("reload your commands")),
 	execute: async ({ interaction, instance, client }) => {
