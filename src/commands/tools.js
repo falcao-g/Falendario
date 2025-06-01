@@ -8,14 +8,14 @@ module.exports = {
 		.setName("tools")
 		.setDescription("Tools for Falendario developers")
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-		.setDMPermission(false)
-		.addSubcommand((subcommand) => subcommand.setName("reload_events").setDescription("reload your events"))
-		.addSubcommand((subcommand) => subcommand.setName("reload_commands").setDescription("reload your commands")),
+		.setContexts("Guild")
+		.addSubcommand((subcommand) => subcommand.setName("re").setDescription("reload your events"))
+		.addSubcommand((subcommand) => subcommand.setName("rc").setDescription("reload your commands")),
 	execute: async ({ interaction, instance, client }) => {
 		await interaction.deferReply({ ephemeral: true })
 		try {
 			subcommand = interaction.options.getSubcommand()
-			if (subcommand === "reload_events") {
+			if (subcommand === "re") {
 				for (const [key, value] of client.events) {
 					client.removeListener(`${key}`, value, true)
 				}
@@ -27,7 +27,7 @@ module.exports = {
 			}
 		} catch (error) {
 			console.error(`tools: ${error}`)
-			interaction.editReply({
+			await interaction.editReply({
 				content: "Algo deu errado! Tente novamente mais tarde. :melting_face:",
 			})
 		}
