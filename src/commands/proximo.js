@@ -1,18 +1,23 @@
-const { SlashCommandBuilder, time, ButtonBuilder } = require("discord.js")
+const { SlashCommandBuilder, time } = require("discord.js")
 const guildSchema = require("../schemas/guild.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("proximo").setDescription("Veja qual o próximo evento marcado"),
-	execute: async ({ interaction, instance, guild }) => {
+	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply()
 		try {
-			var { dates } = await guildSchema.findOne({ _id: guild.id }).sort({ "dates.time": 1 })
+			const documentID = interaction.guildId || interaction.user.id
+			var { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
+
+			if (dates.length === 0) {
+				return await interaction.editReply("Calendário limpo!")
+			}
 
 			//filter dates to only include future events
 			dates = dates.filter((date) => date.time > Date.now())
 
 			if (dates.length === 0) {
-				return await interaction.editReply("Calendário limpo!")
+				return await interaction.editReply("Não há eventos futuros marcados!")
 			}
 
 			const embed = instance.createEmbed("#FF435B").addFields({
@@ -22,9 +27,6 @@ module.exports = {
 			})
 			if (dates.length > 1) embed.data.fields[0].value += `\n\n*e mais ${dates.length - 1} eventos no futuro*...`
 
-			if (dates[0].time < Date.now()) {
-				embed.setColor("#FF0000").setFooter({ text: "Este evento já ocorreu." })
-			}
 			return await interaction.editReply({
 				embeds: [embed],
 			})

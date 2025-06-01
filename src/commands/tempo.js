@@ -4,10 +4,11 @@ const { paginate } = require("../utils/functions.js")
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("tempo").setDescription("Quanto tempo falta?").setDMPermission(true),
-	execute: async ({ interaction, instance, guild }) => {
+	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply()
 		try {
-			const { dates } = await guildSchema.findOne({ _id: guild.id }).sort({ "dates.time": 1 })
+			const documentID = interaction.guildId || interaction.user.id
+			const { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
 
 			if (dates.length === 0) {
 				return interaction.editReply("Calendário limpo!")
@@ -37,7 +38,7 @@ module.exports = {
 				new ButtonBuilder().setEmoji("➡️").setCustomId(ids[1]).setStyle("Secondary"),
 			])
 			const message = await interaction.editReply(paginator.components())
-			message.channel.createMessageComponentCollector().on("collect", async (i) => {
+			message.createMessageComponentCollector({ time: 3600000 }).on("collect", async (i) => {
 				if (i.customId === ids[0]) {
 					await paginator.back()
 					await i.update(paginator.components())

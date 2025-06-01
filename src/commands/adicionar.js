@@ -17,13 +17,14 @@ module.exports = {
 				.setDescription('hora do evento no formato "HH:mm" (opcional, padrão: 00:00)')
 				.setRequired(false)
 		),
-	execute: async ({ interaction, guild }) => {
+	execute: async ({ interaction }) => {
 		await interaction.deferReply()
 		try {
+			const documentID = interaction.guildId || interaction.user.id
 			const server = await guildSchema.findByIdAndUpdate(
-				guild.id,
+				documentID,
 				{
-					_id: guild.id,
+					_id: documentID,
 				},
 				{
 					upsert: true,
