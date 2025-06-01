@@ -18,7 +18,21 @@ module.exports = {
 		await interaction.deferReply()
 		try {
 			const documentID = interaction.guildId || interaction.user.id
-			var { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
+			var { dates } = (
+				await guildSchema.aggregate([
+					{ $match: { _id: documentID } },
+					{
+						$project: {
+							dates: {
+								$sortArray: {
+									input: "$dates",
+									sortBy: { time: 1 }, // 1 = ordem crescente, -1 = decrescente
+								},
+							},
+						},
+					},
+				])
+			)[0] ?? { dates: [] }
 
 			dates = dates.filter((date) => {
 				if (date.time > Date.now()) {

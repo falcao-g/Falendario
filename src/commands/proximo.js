@@ -17,7 +17,21 @@ module.exports = {
 		await interaction.deferReply()
 		try {
 			const documentID = interaction.guildId || interaction.user.id
-			var { dates } = (await guildSchema.findOne({ _id: documentID }).sort({ "dates.time": 1 })) ?? { dates: [] }
+			var { dates } = (
+				await guildSchema.aggregate([
+					{ $match: { _id: documentID } },
+					{
+						$project: {
+							dates: {
+								$sortArray: {
+									input: "$dates",
+									sortBy: { time: 1 }, // 1 = ordem crescente, -1 = decrescente
+								},
+							},
+						},
+					},
+				])
+			)[0] ?? { dates: [] }
 
 			if (dates.length === 0) {
 				return await interaction.editReply(instance.getMessage(interaction, "CLEAN_CALENDAR"))
