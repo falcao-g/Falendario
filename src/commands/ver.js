@@ -30,6 +30,7 @@ module.exports = {
 					"es-ES": "El nombre del evento que quieres ver",
 				})
 				.setMinLength(1)
+				.setRequired(true)
 		),
 	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply()

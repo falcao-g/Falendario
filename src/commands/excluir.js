@@ -30,6 +30,7 @@ module.exports = {
 					"es-ES": "El nombre del evento que quieres eliminar",
 				})
 				.setMinLength(1)
+				.setRequired(true)
 		),
 	execute: async ({ interaction, instance, args }) => {
 		await interaction.deferReply()
