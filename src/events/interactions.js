@@ -33,6 +33,42 @@ module.exports = {
 		} else if (interaction.isAutocomplete()) {
 			const command = client.commands.get(interaction.commandName)
 			command.autocomplete({ interaction, instance })
+		} else if (interaction.isButton()) {
+			//all button interactions are like the following: <command> <args>
+			const commandName = interaction.customId.split(" ")[0]
+			const command = client.commands.get(commandName)
+
+			if (command == undefined) return
+
+			var args = interaction.customId.split(" ").slice(1)
+
+			command.execute({
+				interaction,
+				instance,
+				client,
+				member: interaction.member,
+				guild: interaction.guild,
+				user: interaction.user,
+				channel: interaction.channel,
+				database: instance.database,
+				args,
+			})
+		} else if (interaction.isStringSelectMenu()) {
+			const command = client.commands.get(interaction.customId.split(" ")[0])
+
+			if (command == undefined) return
+
+			await command.execute({
+				guild: interaction.guild,
+				interaction,
+				instance,
+				member: interaction.member,
+				client,
+				user: interaction.user,
+				channel: interaction.channel,
+				database: instance.database,
+				subcommand: interaction.customId.split(" ")[1],
+			})
 		}
 	},
 }
