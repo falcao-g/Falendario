@@ -95,8 +95,8 @@
         "es-ES": "¡Evento **{NAME}** eliminado con éxito! 🗑️"
     },
     "INVITE": {
-		"pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=0&scope=bot)",
-		"en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=0&scope=bot)",
-		"es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=0&scope=bot)"
+		"pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+		"en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+		"es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)"
 	}
 }

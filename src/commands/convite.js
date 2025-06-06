@@ -15,7 +15,7 @@ module.exports = {
 	execute: async ({ interaction, instance }) => {
 		await interaction.deferReply().catch(() => {})
 		try {
-			await instance.editReply(interaction, { content: instance.getMessage(interaction, "INVITE") })
+			await interaction.editReply({ content: instance.getMessage(interaction, "INVITE") })
 		} catch (error) {
 			console.error(`convite: ${error}`)
 			instance.editReply(interaction, {
