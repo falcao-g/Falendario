@@ -79,7 +79,11 @@ module.exports = {
 							},
 						},
 					])
-				)[0]
+				)[0] ?? { dates: [] }
+
+				if (dates.length === 0) {
+					return await interaction.editReply(instance.getMessage(interaction, "NO_EVENT_FOUND_ID"))
+				}
 			}
 
 			if (dates.length > 1) {
