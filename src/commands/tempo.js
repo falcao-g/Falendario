@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, time, ButtonBuilder } = require("discord.js")
+const { SlashCommandBuilder, time, ButtonBuilder, StringSelectMenuBuilder } = require("discord.js")
 const guildSchema = require("../schemas/guild.js")
 const { paginate } = require("../utils/functions.js")
 
@@ -53,22 +53,35 @@ module.exports = {
 
 			//generate an array of embeds with 5 dates each until the end of the array
 			const embeds = []
+			const selectMenus = []
 			const total = Math.ceil(dates.length / 5)
 			for (let i = 0; i < total; i++) {
 				const embed = instance.createEmbed("#FF435B")
+				const selectMenu = new StringSelectMenuBuilder()
+					.setCustomId(`ver`)
+					.setPlaceholder(instance.getMessage(interaction, "SELECT_AN_DATE"))
 				const datesSlice = dates.slice(i * 5, (i + 1) * 5)
-				datesSlice.forEach((date) => {
+				const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+				datesSlice.forEach((date, index) => {
 					embed.addFields({
-						name: `${date.name} ${time(date.time, "R")}`,
+						name: `${emojis[index]} ${date.name} ${time(date.time, "R")}`,
 						value: date.description,
 						inline: true,
 					})
+					selectMenu.addOptions({
+						label: date.name,
+						value: date._id.toString(),
+						description: date.description,
+						emoji: emojis[index],
+					})
 				})
 				embeds.push(embed)
+				selectMenus.push(selectMenu)
 			}
 
 			const paginator = paginate()
 			paginator.add(...embeds)
+			paginator.addComponents(...selectMenus)
 			const ids = [`${Date.now()}__left`, `${Date.now()}__right`]
 			paginator.setTraverser([
 				new ButtonBuilder().setEmoji("⬅️").setCustomId(ids[0]).setStyle("Secondary"),

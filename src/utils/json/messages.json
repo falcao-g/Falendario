@@ -68,5 +68,35 @@
         "pt-BR": "\n\n*e mais {COUNT} eventos no futuro...*",
         "en-US": "\n\n*and {COUNT} more events in the future...*",
         "es-ES": "\n\n*y {COUNT} eventos más en el futuro...*"
-    }
+    },
+    "SELECT_AN_DATE": {
+        "pt-BR": "Selecione uma data...",
+        "en-US": "Select a date...",
+        "es-ES": "Selecciona una fecha..."
+    },
+    "NO_EVENT_FOUND": {
+        "pt-BR": "Nenhum evento com o nome {NAME} foi encontrado!",
+        "en-US": "No event with the name {NAME} was found!",
+        "es-ES": "¡No se encontró ningún evento con el nombre {NAME}!"
+    },
+    "AND_WITH_SAME_NAME": {
+        "pt-BR": "\n\n*e mais {COUNT} com o mesmo nome...*",
+        "en-US": "\n\n*and {COUNT} more with the same name...*",
+        "es-ES": "\n\n*y {COUNT} más con el mismo nombre...*"
+    },
+    "DELETE": {
+        "pt-BR": "Excluir",
+        "en-US": "Delete",
+        "es-ES": "Eliminar"
+    },
+    "EVENT_DELETED": {
+        "pt-BR": "Evento **{NAME}** excluído com sucesso! 🗑️",
+        "en-US": "Event **{NAME}** deleted successfully! 🗑️",
+        "es-ES": "¡Evento **{NAME}** eliminado con éxito! 🗑️"
+    },
+    "INVITE": {
+		"pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+		"en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+		"es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)"
+	}
 }
