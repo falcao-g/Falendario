@@ -3,6 +3,9 @@ const mongoose = require("mongoose")
 const date = mongoose.Schema({
 	name: { type: String, required: true },
 	description: { type: String, required: true },
+	location: { type: String, required: false },
+	category: { type: String, required: false },
+	timezone: { type: String, required: false, default: "UTC" },
 	time: { type: Date, required: true },
 })
 

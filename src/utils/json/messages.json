@@ -34,25 +34,10 @@
 		"en-US": "{VALUE} is not a valid value... :rage:",
 		"es-ES": "{VALUE} no es un valor válido... :rage:"
 	},
-    "INVALID_DATE": {
-        "pt-BR": "Data inválida, por favor, use o formato DD/MM/AAAA",
-        "en-US": "Invalid date, please use the format DD/MM/YYYY",
-        "es-ES": "Fecha inválida, por favor usa el formato DD/MM/AAAA"
-    },
-    "INVALID_TIME": {
-        "pt-BR": "Hora inválida, por favor, use o formato HH:MM",
-        "en-US": "Invalid time, please use the format HH:MM",
-        "es-ES": "Hora inválida, por favor usa el formato HH:MM"
-    },
     "NOT_PAST_EVENTS": {
         "pt-BR": "Não é possível criar eventos no passado!",
         "en-US": "You cannot create events in the past!",
         "es-ES": "No puedes crear eventos en el pasado!"
-    },
-    "ADDED_EVENT": {
-        "pt-BR": "Evento adicionado com sucesso! {TITLE} - {DATE}!",
-        "en-US": "Event added successfully! {TITLE} - {DATE}!",
-        "es-ES": "¡Evento añadido con éxito! {TITLE} - {DATE}!"
     },
     "CLEAN_CALENDAR": {
         "pt-BR": "Calendário limpo!",
@@ -98,5 +83,70 @@
 		"pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
 		"en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
 		"es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)"
-	}
+	},
+    "ADD_EVENT_MODAL_TITLE": {
+        "en-US": "Add Event",
+        "es-ES": "Añadir Evento",
+        "pt-BR": "Adicionar Evento"
+    },
+    "EVENT_NAME": {
+        "en-US": "Event Name",
+        "es-ES": "Nombre del Evento",
+        "pt-BR": "Nome do Evento"
+    },
+    "EVENT_DESCRIPTION": {
+        "en-US": "Description",
+        "es-ES": "Descripción",
+        "pt-BR": "Descrição"
+    },
+    "EVENT_DATE": {
+        "en-US": "Date (DD/MM/YYYY)",
+        "es-ES": "Fecha (DD/MM/YYYY)",
+        "pt-BR": "Data (DD/MM/YYYY)"
+    },
+    "EVENT_TIME": {
+        "en-US": "Time (HH:mm)",
+        "es-ES": "Hora (HH:mm)",
+        "pt-BR": "Hora (HH:mm)"
+    },
+    "EVENT_TIMEZONE": {
+        "en-US": "Timezone (e.g., UTC)",
+        "es-ES": "Zona horaria (ej., UTC)",
+        "pt-BR": "Fuso horário (ex., UTC)"
+    },
+    "EVENT_LOCATION": {
+        "en-US": "Location",
+        "es-ES": "Ubicación",
+        "pt-BR": "Localização"
+    },
+    "EVENT_CATEGORY": {
+        "en-US": "Category",
+        "es-ES": "Categoría",
+        "pt-BR": "Categoria"
+    },
+    "INVALID_DATETIME": {
+        "en-US": "Invalid date/time format! Please use DD/MM/YYYY HH:mm",
+        "es-ES": "Formato de fecha/hora inválido. Use DD/MM/YYYY HH:mm",
+        "pt-BR": "Formato de data/hora inválido! Use DD/MM/AAAA HH:mm"
+    },
+      "EVENT_DATETIME": {
+        "en-US": "Date and Time",
+        "es-ES": "Fecha y Hora",
+        "pt-BR": "Data e Hora"
+    },
+    "INVALID_DATE": {
+        "en-US": "❌ Invalid date format! Please use DD/MM/YYYY",
+        "es-ES": "❌ Formato de fecha inválido! Use DD/MM/YYYY",
+        "pt-BR": "❌ Formato de data inválido! Use DD/MM/AAAA"
+    },
+    "INVALID_TIME": {
+        "en-US": "❌ Invalid time format! Please use HH:mm",
+        "es-ES": "❌ Formato de hora inválido! Use HH:mm",
+        "pt-BR": "❌ Formato de hora inválido! Use HH:mm"
+    },
+    "ADDED_EVENT": {
+        "en-US": "✅ Event **{TITLE}** added for {DATE} ({RELATIVE})",
+        "es-ES": "✅ Evento **{TITLE}** añadido para {DATE} ({RELATIVE})",
+        "pt-BR": "✅ Evento **{TITLE}** adicionado para {DATE} ({RELATIVE})"
+    }
 }
