@@ -4,6 +4,8 @@ const {
 	TextInputBuilder,
 	TextInputStyle,
 	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
 	time,
 } = require("discord.js")
 const guildSchema = require("../schemas/guild.js")
@@ -98,14 +100,14 @@ module.exports = {
 
 			if (!submitted) return
 
-			await submitted.deferReply({ ephemeral: true })
+			await submitted.deferReply()
 
 			// Extract values
 			const datetimeStr = submitted.fields.getTextInputValue("datetimeInput")
 			const description = submitted.fields.getTextInputValue("descriptionInput")
 			const timezone = submitted.fields.getTextInputValue("timezoneInput") || "UTC"
-			const location = submitted.fields.getTextInputValue("locationInput") || "Não especificado"
-			const category = submitted.fields.getTextInputValue("categoryInput") || "Geral"
+			const location = submitted.fields.getTextInputValue("locationInput")
+			const category = submitted.fields.getTextInputValue("categoryInput")
 
 			// Parse date/time (supports both "DD/MM/YYYY" and "DD/MM/YYYY HH:mm")
 			let [datePart, timePart] = datetimeStr.split(" ")
@@ -131,7 +133,8 @@ module.exports = {
 
 			// Save to database
 			const documentID = submitted.guildId || submitted.user.id
-			await guildSchema.findByIdAndUpdate(
+			//receive back the generated ObjectId
+			const doc = await guildSchema.findByIdAndUpdate(
 				documentID,
 				{
 					$push: {
@@ -145,8 +148,20 @@ module.exports = {
 						},
 					},
 				},
-				{ upsert: true }
+				{ upsert: true, new: true }
 			)
+
+			const button = new ButtonBuilder()
+				.setCustomId(`excluir ${doc.dates[doc.dates.length - 1]._id}`)
+				.setStyle(ButtonStyle.Danger)
+				.setLabel(instance.getMessage(submitted, "DELETE"))
+				.setEmoji("🗑️")
+
+			const button2 = new ButtonBuilder()
+				.setCustomId(`ver ${doc.dates[doc.dates.length - 1]._id}`)
+				.setStyle(ButtonStyle.Primary)
+				.setLabel(instance.getMessage(submitted, "VIEW"))
+				.setEmoji("🔍")
 
 			// Success reply with rich information
 			await submitted.editReply({
@@ -157,7 +172,7 @@ module.exports = {
 					LOCATION: location,
 					CATEGORY: category,
 				}),
-				ephemeral: true,
+				components: [new ActionRowBuilder().addComponents(button, button2)],
 			})
 		} catch (error) {
 			console.error(`adicionar: ${error}`)

@@ -64,6 +64,11 @@
         "en-US": "No event with the name {NAME} was found!",
         "es-ES": "¡No se encontró ningún evento con el nombre {NAME}!"
     },
+    "NO_EVENT_FOUND_ID": {
+        "pt-BR": "Esse evento foi excluído ou não existe!",
+        "en-US": "This event has been deleted or does not exist!",
+        "es-ES": "¡Este evento ha sido eliminado o no existe!"
+    },
     "AND_WITH_SAME_NAME": {
         "pt-BR": "\n\n*e mais {COUNT} com o mesmo nome...*",
         "en-US": "\n\n*and {COUNT} more with the same name...*",
@@ -73,6 +78,11 @@
         "pt-BR": "Excluir",
         "en-US": "Delete",
         "es-ES": "Eliminar"
+    },
+    "VIEW": {
+        "pt-BR": "Ver",
+        "en-US": "View",
+        "es-ES": "Ver"
     },
     "EVENT_DELETED": {
         "pt-BR": "Evento **{NAME}** excluído com sucesso! 🗑️",
@@ -148,5 +158,15 @@
         "en-US": "✅ Event **{TITLE}** added for {DATE} ({RELATIVE})",
         "es-ES": "✅ Evento **{TITLE}** añadido para {DATE} ({RELATIVE})",
         "pt-BR": "✅ Evento **{TITLE}** adicionado para {DATE} ({RELATIVE})"
+    },
+    "MORE_INFO": {
+        "pt-BR": "Mais informações:",
+        "en-US": "More information:",
+        "es-ES": "Más información:"
+    },
+    "NOT_DEFINED": {
+        "pt-BR": "Não definido",
+        "en-US": "Not defined",
+        "es-ES": "No definido"
     }
 }

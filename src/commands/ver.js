@@ -32,7 +32,7 @@ module.exports = {
 				.setMinLength(1)
 				.setRequired(true)
 		),
-	execute: async ({ interaction, instance }) => {
+	execute: async ({ interaction, instance, args }) => {
 		await interaction.deferReply()
 		try {
 			if (interaction.options) {
@@ -53,12 +53,11 @@ module.exports = {
 
 				//filter dates to only include future events
 				dates = dates.filter((date) => date.time > Date.now())
-
 				if (dates.length === 0) {
 					return await interaction.editReply(instance.getMessage(interaction, "NO_EVENT_FOUND", { NAME: eventName }))
 				}
 			} else {
-				const documentID = new ObjectId(interaction.values[0])
+				const documentID = new ObjectId(interaction.values != undefined ? interaction.values[0] : args[0])
 
 				var { dates } = (
 					await guildSchema.aggregate([
@@ -79,16 +78,32 @@ module.exports = {
 							},
 						},
 					])
-				)[0]
+				)[0] ?? { dates: [] }
+
+				if (dates.length === 0) {
+					return await interaction.editReply(instance.getMessage(interaction, "NO_EVENT_FOUND_ID"))
+				}
 			}
 
 			const embeds = []
 			const deleteButtons = []
 			dates.forEach((date, index) => {
+				datePropertiesText = `:round_pushpin: ${instance.getMessage(interaction, "EVENT_LOCATION")}: ${
+					date.location ? date.location : instance.getMessage(interaction, "NOT_DEFINED")
+				}\n:bookmark_tabs: ${instance.getMessage(interaction, "EVENT_CATEGORY")}: ${
+					date.category ? date.category : instance.getMessage(interaction, "NOT_DEFINED")
+				}`
 				const embed = instance.createEmbed("#FF435B")
+				embed.setTitle(
+					`:calendar_spiral: ${date.name.length > 230 ? date.name.substring(0, 237) + "..." : date.name} (${time(
+						date.time,
+						"R"
+					)})`
+				)
+				embed.setDescription(date.description)
 				embed.addFields({
-					name: `${date.name} ${time(date.time, "R")}`,
-					value: date.description,
+					name: instance.getMessage(interaction, "MORE_INFO"),
+					value: `${datePropertiesText}`,
 					inline: true,
 				})
 
