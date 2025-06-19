@@ -65,13 +65,13 @@ module.exports = {
 				datesSlice.forEach((date, index) => {
 					embed.addFields({
 						name: `${emojis[index]} ${date.name} ${time(date.time, "R")}`,
-						value: date.description,
+						value: date.description.substring(0, 100),
 						inline: true,
 					})
 					selectMenu.addOptions({
 						label: date.name,
 						value: date._id.toString(),
-						description: date.description,
+						description: date.description.substring(0, 50),
 						emoji: emojis[index],
 					})
 				})

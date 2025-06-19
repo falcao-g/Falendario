@@ -1,4 +1,4 @@
-const { ActionRowBuilder } = require("discord.js")
+const { ActionRowBuilder, ButtonBuilder } = require("discord.js")
 
 function msToTime(ms) {
 	let time = ""
@@ -63,20 +63,20 @@ function paginate() {
 			}
 		},
 		components() {
-			if (__components.length == 0) {
-				return {
-					embeds: [__embeds.at(cur)],
-					components: [new ActionRowBuilder().addComponents(...traverser)],
-					fetchReply: true,
+			componentsToAdd = []
+
+			if (__components.length > 0) {
+				if (__components.length === __embeds.length && __components.at(cur) instanceof ButtonBuilder) {
+					componentsToAdd.push(new ActionRowBuilder().addComponents(__components.at(cur)).addComponents(...traverser))
+				} else {
+					componentsToAdd.push(new ActionRowBuilder().addComponents(__components.at(cur)))
+					if (__embeds.length > 1) componentsToAdd.push(new ActionRowBuilder().addComponents(...traverser))
 				}
 			}
 
 			return {
 				embeds: [__embeds.at(cur)],
-				components: [
-					new ActionRowBuilder().addComponents(__components.at(cur)),
-					new ActionRowBuilder().addComponents(...traverser),
-				],
+				components: componentsToAdd,
 				fetchReply: true,
 			}
 		},

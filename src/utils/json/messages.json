@@ -1,102 +1,182 @@
 {
-	"YOU_ARE_BOT": {
-		"en-US": "You can't use Falendario's commands because you are a bot",
-		"pt-BR": "Outros bots não podem usar os comandos do Falendario",
-		"es-ES": "No puedes usar los comandos de Falendario porque eres un bot"
-	},
-	"YOU_ARE_BANNED": {
-		"en-US": "You are banned from using Falendario, if you think this is a mistake, contact the bot developers",
-		"pt-BR": "Você está banido de usar o Falendario, se você acha que isso é um engano, entre em contato com os desenvolvedores",
-		"es-ES": "Estás baneado de usar Falendario, si crees que esto es un error, contacta a los desarrolladores del bot"
-	},
-	"INVALID_COMMAND": {
-		"pt-BR": "Esse comando não existe!",
-		"en-US": "This command doesn't exist!",
-		"es-ES": "¡Este comando no existe!"
-	},
-	"BOT_OWNERS_ONLY": {
-		"en-US": "Only the bot developer can run this command.",
-		"pt-BR": "Apenas o desenvolvedor do bot pode executar este comando.",
-		"es-ES": "Solo el desarrollador del bot puede ejecutar este comando."
-	},
-	"COOLDOWN": {
-		"en-US": "You must wait {COOLDOWN} before using that command again.",
-		"pt-BR": "Você precisa esperar {COOLDOWN} antes de usar este comando novamente.",
-		"es-ES": "Debes esperar {COOLDOWN} antes de usar ese comando de nuevo."
-	},
-	"EXCEPTION": {
-		"en-US": "An error occurred when running this command! This error has been reported to the developer. :melting_face:",
-		"pt-BR": "Ocorreu um erro ao executar este comando! Este erro foi relatado ao desenvolvedor. :melting_face:",
-		"es-ES": "¡Se produjo un error al ejecutar este comando! Este error ha sido reportado al desarrollador. :melting_face:"
-	},
-	"BAD_VALUE": {
-		"pt-BR": "{VALUE} não é um valor válido... :rage:",
-		"en-US": "{VALUE} is not a valid value... :rage:",
-		"es-ES": "{VALUE} no es un valor válido... :rage:"
-	},
-    "INVALID_DATE": {
-        "pt-BR": "Data inválida, por favor, use o formato DD/MM/AAAA",
-        "en-US": "Invalid date, please use the format DD/MM/YYYY",
-        "es-ES": "Fecha inválida, por favor usa el formato DD/MM/AAAA"
-    },
-    "INVALID_TIME": {
-        "pt-BR": "Hora inválida, por favor, use o formato HH:MM",
-        "en-US": "Invalid time, please use the format HH:MM",
-        "es-ES": "Hora inválida, por favor usa el formato HH:MM"
-    },
-    "NOT_PAST_EVENTS": {
-        "pt-BR": "Não é possível criar eventos no passado!",
-        "en-US": "You cannot create events in the past!",
-        "es-ES": "No puedes crear eventos en el pasado!"
-    },
-    "ADDED_EVENT": {
-        "pt-BR": "Evento adicionado com sucesso! {TITLE} - {DATE}!",
-        "en-US": "Event added successfully! {TITLE} - {DATE}!",
-        "es-ES": "¡Evento añadido con éxito! {TITLE} - {DATE}!"
-    },
-    "CLEAN_CALENDAR": {
-        "pt-BR": "Calendário limpo!",
-        "en-US": "Empty calendar!",
-        "es-ES": "¡Calendario vacío!"
-    },
-    "NO_FUTURE_EVENTS": {
-        "pt-BR": "Não há eventos futuros marcados!",
-        "en-US": "There are no future events marked!",
-        "es-ES": "¡No hay eventos futuros marcados!"
-    },
-    "AND_MORE_EVENTS": {
-        "pt-BR": "\n\n*e mais {COUNT} eventos no futuro...*",
-        "en-US": "\n\n*and {COUNT} more events in the future...*",
-        "es-ES": "\n\n*y {COUNT} eventos más en el futuro...*"
-    },
-    "SELECT_AN_DATE": {
-        "pt-BR": "Selecione uma data...",
-        "en-US": "Select a date...",
-        "es-ES": "Selecciona una fecha..."
-    },
-    "NO_EVENT_FOUND": {
-        "pt-BR": "Nenhum evento com o nome {NAME} foi encontrado!",
-        "en-US": "No event with the name {NAME} was found!",
-        "es-ES": "¡No se encontró ningún evento con el nombre {NAME}!"
-    },
-    "AND_WITH_SAME_NAME": {
-        "pt-BR": "\n\n*e mais {COUNT} com o mesmo nome...*",
-        "en-US": "\n\n*and {COUNT} more with the same name...*",
-        "es-ES": "\n\n*y {COUNT} más con el mismo nombre...*"
-    },
-    "DELETE": {
-        "pt-BR": "Excluir",
-        "en-US": "Delete",
-        "es-ES": "Eliminar"
-    },
-    "EVENT_DELETED": {
-        "pt-BR": "Evento **{NAME}** excluído com sucesso! 🗑️",
-        "en-US": "Event **{NAME}** deleted successfully! 🗑️",
-        "es-ES": "¡Evento **{NAME}** eliminado con éxito! 🗑️"
-    },
-    "INVITE": {
-		"pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
-		"en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
-		"es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)"
-	}
+  "YOU_ARE_BOT": {
+    "en-US": "You can't use Falendario's commands because you are a bot",
+    "pt-BR": "Outros bots não podem usar os comandos do Falendario",
+    "es-ES": "No puedes usar los comandos de Falendario porque eres un bot"
+  },
+  "YOU_ARE_BANNED": {
+    "en-US": "You are banned from using Falendario, if you think this is a mistake, contact the bot developers",
+    "pt-BR": "Você está banido de usar o Falendario, se você acha que isso é um engano, entre em contato com os desenvolvedores",
+    "es-ES": "Estás baneado de usar Falendario, si crees que esto es un error, contacta a los desarrolladores del bot"
+  },
+  "INVALID_COMMAND": {
+    "pt-BR": "Esse comando não existe!",
+    "en-US": "This command doesn't exist!",
+    "es-ES": "¡Este comando no existe!"
+  },
+  "BOT_OWNERS_ONLY": {
+    "en-US": "Only the bot developer can run this command.",
+    "pt-BR": "Apenas o desenvolvedor do bot pode executar este comando.",
+    "es-ES": "Solo el desarrollador del bot puede ejecutar este comando."
+  },
+  "COOLDOWN": {
+    "en-US": "You must wait {COOLDOWN} before using that command again.",
+    "pt-BR": "Você precisa esperar {COOLDOWN} antes de usar este comando novamente.",
+    "es-ES": "Debes esperar {COOLDOWN} antes de usar ese comando de nuevo."
+  },
+  "EXCEPTION": {
+    "en-US": "An error occurred when running this command! This error has been reported to the developer. :melting_face:",
+    "pt-BR": "Ocorreu um erro ao executar este comando! Este erro foi relatado ao desenvolvedor. :melting_face:",
+    "es-ES": "¡Se produjo un error al ejecutar este comando! Este error ha sido reportado al desarrollador. :melting_face:"
+  },
+  "BAD_VALUE": {
+    "pt-BR": "{VALUE} não é um valor válido... :rage:",
+    "en-US": "{VALUE} is not a valid value... :rage:",
+    "es-ES": "{VALUE} no es un valor válido... :rage:"
+  },
+  "NOT_PAST_EVENTS": {
+    "pt-BR": "Não é possível criar eventos no passado!",
+    "en-US": "You cannot create events in the past!",
+    "es-ES": "No puedes crear eventos en el pasado!"
+  },
+  "CLEAN_CALENDAR": {
+    "pt-BR": "Calendário limpo!",
+    "en-US": "Empty calendar!",
+    "es-ES": "¡Calendario vacío!"
+  },
+  "NO_FUTURE_EVENTS": {
+    "pt-BR": "Não há eventos futuros marcados!",
+    "en-US": "There are no future events marked!",
+    "es-ES": "¡No hay eventos futuros marcados!"
+  },
+  "AND_MORE_EVENTS": {
+    "pt-BR": "\n\n*e mais {COUNT} eventos no futuro...*",
+    "en-US": "\n\n*and {COUNT} more events in the future...*",
+    "es-ES": "\n\n*y {COUNT} eventos más en el futuro...*"
+  },
+  "SELECT_AN_DATE": {
+    "pt-BR": "Selecione uma data...",
+    "en-US": "Select a date...",
+    "es-ES": "Selecciona una fecha..."
+  },
+  "NO_EVENT_FOUND": {
+    "pt-BR": "Nenhum evento com o nome {NAME} foi encontrado!",
+    "en-US": "No event with the name {NAME} was found!",
+    "es-ES": "¡No se encontró ningún evento con el nombre {NAME}!"
+  },
+  "NO_EVENT_FOUND_ID": {
+    "pt-BR": "Esse evento foi excluído ou não existe!",
+    "en-US": "This event has been deleted or does not exist!",
+    "es-ES": "¡Este evento ha sido eliminado o no existe!"
+  },
+  "AND_WITH_SAME_NAME": {
+    "pt-BR": "\n\n*e mais {COUNT} com o mesmo nome...*",
+    "en-US": "\n\n*and {COUNT} more with the same name...*",
+    "es-ES": "\n\n*y {COUNT} más con el mismo nombre...*"
+  },
+  "DELETE": {
+    "pt-BR": "Excluir",
+    "en-US": "Delete",
+    "es-ES": "Eliminar"
+  },
+  "VIEW": {
+    "pt-BR": "Ver",
+    "en-US": "View",
+    "es-ES": "Ver"
+  },
+  "EVENT_DELETED": {
+    "pt-BR": "Evento **{NAME}** excluído com sucesso! 🗑️",
+    "en-US": "Event **{NAME}** deleted successfully! 🗑️",
+    "es-ES": "¡Evento **{NAME}** eliminado con éxito! 🗑️"
+  },
+  "INVITE": {
+    "pt-BR": ":pushpin: Convide o Falendario você mesmo: [Clique Aqui](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+    "en-US": ":pushpin: Invite Falendario yourself: [Click Here](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)",
+    "es-ES": ":pushpin: Invita a Falendario tú mismo: [Haz Clic Aquí](https://discord.com/oauth2/authorize?client_id=1100513710566547517&permissions=0&integration_type=0&scope=bot+applications.commands)"
+  },
+  "ADD_EVENT_MODAL_TITLE": {
+    "en-US": "Add Event",
+    "es-ES": "Añadir Evento",
+    "pt-BR": "Adicionar Evento"
+  },
+  "EVENT_NAME": {
+    "en-US": "Event Name",
+    "es-ES": "Nombre del Evento",
+    "pt-BR": "Nome do Evento"
+  },
+  "EVENT_DESCRIPTION": {
+    "en-US": "Description",
+    "es-ES": "Descripción",
+    "pt-BR": "Descrição"
+  },
+  "EVENT_DATE": {
+    "en-US": "Date (DD/MM/YYYY)",
+    "es-ES": "Fecha (DD/MM/YYYY)",
+    "pt-BR": "Data (DD/MM/YYYY)"
+  },
+  "EVENT_TIME": {
+    "en-US": "Time (HH:mm)",
+    "es-ES": "Hora (HH:mm)",
+    "pt-BR": "Hora (HH:mm)"
+  },
+  "EVENT_TIMEZONE": {
+    "en-US": "Timezone (e.g., UTC)",
+    "es-ES": "Zona horaria (ej., UTC)",
+    "pt-BR": "Fuso horário (ex., UTC)"
+  },
+  "EVENT_LOCATION": {
+    "en-US": "Location",
+    "es-ES": "Ubicación",
+    "pt-BR": "Localização"
+  },
+  "EVENT_CATEGORY": {
+    "en-US": "Category",
+    "es-ES": "Categoría",
+    "pt-BR": "Categoria"
+  },
+  "INVALID_DATETIME": {
+    "en-US": "Invalid date/time format! Please use DD/MM/YYYY HH:mm",
+    "es-ES": "Formato de fecha/hora inválido. Use DD/MM/YYYY HH:mm",
+    "pt-BR": "Formato de data/hora inválido! Use DD/MM/AAAA HH:mm"
+  },
+  "EVENT_DATETIME": {
+    "en-US": "Date and Time",
+    "es-ES": "Fecha y Hora",
+    "pt-BR": "Data e Hora"
+  },
+  "INVALID_DATE": {
+    "en-US": "❌ Invalid date format! Please use DD/MM/YYYY",
+    "es-ES": "❌ Formato de fecha inválido! Use DD/MM/YYYY",
+    "pt-BR": "❌ Formato de data inválido! Use DD/MM/AAAA"
+  },
+  "INVALID_TIME": {
+    "en-US": "❌ Invalid time format! Please use HH:mm",
+    "es-ES": "❌ Formato de hora inválido! Use HH:mm",
+    "pt-BR": "❌ Formato de hora inválido! Use HH:mm"
+  },
+  "ADDED_EVENT": {
+    "en-US": "✅ Event **{TITLE}** added for {DATE} ({RELATIVE})",
+    "es-ES": "✅ Evento **{TITLE}** añadido para {DATE} ({RELATIVE})",
+    "pt-BR": "✅ Evento **{TITLE}** adicionado para {DATE} ({RELATIVE})"
+  },
+  "MORE_INFO": {
+    "pt-BR": "Mais informações:",
+    "en-US": "More information:",
+    "es-ES": "Más información:"
+  },
+  "NOT_DEFINED": {
+    "pt-BR": "Não definido",
+    "en-US": "Not defined",
+    "es-ES": "No definido"
+  },
+  "UPTIME": {
+    "pt-BR": "Tempo de funcionamento",
+    "en-US": "Uptime",
+    "es-ES": "Tiempo en funcionamiento"
+  },
+  "SERVERS": {
+    "pt-BR": "Servidores",
+    "en-US": "Servers",
+    "es-ES": "Servidores"
+  }
 }

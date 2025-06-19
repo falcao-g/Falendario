@@ -32,7 +32,7 @@ module.exports = {
 				.setMinLength(1)
 				.setRequired(true)
 		),
-	execute: async ({ interaction, instance }) => {
+	execute: async ({ interaction, instance, args }) => {
 		await interaction.deferReply()
 		try {
 			if (interaction.options) {
@@ -53,12 +53,11 @@ module.exports = {
 
 				//filter dates to only include future events
 				dates = dates.filter((date) => date.time > Date.now())
-
 				if (dates.length === 0) {
 					return await interaction.editReply(instance.getMessage(interaction, "NO_EVENT_FOUND", { NAME: eventName }))
 				}
 			} else {
-				const documentID = new ObjectId(interaction.values[0])
+				const documentID = new ObjectId(interaction.values != undefined ? interaction.values[0] : args[0])
 
 				var { dates } = (
 					await guildSchema.aggregate([
@@ -79,79 +78,74 @@ module.exports = {
 							},
 						},
 					])
-				)[0]
+				)[0] ?? { dates: [] }
+
+				if (dates.length === 0) {
+					return await interaction.editReply(instance.getMessage(interaction, "NO_EVENT_FOUND_ID"))
+				}
 			}
 
-			if (dates.length > 1) {
-				const embeds = []
-				const deleteButtons = []
-				dates.forEach((date, index) => {
-					const embed = instance.createEmbed("#FF435B")
-					embed.addFields({
-						name: `${date.name} ${time(date.time, "R")}`,
-						value: date.description,
-						inline: true,
-					})
-
-					button = new ButtonBuilder()
-						.setCustomId(`excluir ${date._id}`)
-						.setStyle(ButtonStyle.Danger)
-						.setLabel(instance.getMessage(interaction, "DELETE"))
-						.setEmoji("🗑️")
-
-					if (dates.length > 1) {
-						embed.data.fields[0].value +=
-							dates.length - 1 - index > 0
-								? instance.getMessage(interaction, "AND_WITH_SAME_NAME", {
-										COUNT: dates.length - 1 - index,
-								  })
-								: ""
-					}
-
-					embeds.push(embed)
-					deleteButtons.push(button)
-				})
-
-				const paginator = paginate()
-				paginator.add(...embeds)
-				paginator.addComponents(...deleteButtons)
-				const ids = [`${Date.now()}__left`, `${Date.now()}__right`]
-				paginator.setTraverser([
-					new ButtonBuilder().setEmoji("⬅️").setCustomId(ids[0]).setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder().setEmoji("➡️").setCustomId(ids[1]).setStyle(ButtonStyle.Secondary),
-				])
-
-				const message = await interaction.editReply(paginator.components())
-
-				message.createMessageComponentCollector({ time: 3600000 }).on("collect", async (i) => {
-					if (i.customId === ids[0]) {
-						await paginator.back()
-						await i.update(paginator.components())
-					} else if (i.customId === ids[1]) {
-						await paginator.next()
-						await i.update(paginator.components())
-					}
-				})
-			} else {
+			const embeds = []
+			const deleteButtons = []
+			dates.forEach((date, index) => {
+				datePropertiesText = `:round_pushpin: ${instance.getMessage(interaction, "EVENT_LOCATION")}: ${
+					date.location ? date.location : instance.getMessage(interaction, "NOT_DEFINED")
+				}\n:bookmark_tabs: ${instance.getMessage(interaction, "EVENT_CATEGORY")}: ${
+					date.category ? date.category : instance.getMessage(interaction, "NOT_DEFINED")
+				}`
 				const embed = instance.createEmbed("#FF435B")
+				embed.setTitle(
+					`:calendar_spiral: ${date.name.length > 230 ? date.name.substring(0, 237) + "..." : date.name} (${time(
+						date.time,
+						"R"
+					)})`
+				)
+				embed.setDescription(date.description)
 				embed.addFields({
-					name: `${dates[0].name} ${time(dates[0].time, "R")}`,
-					value: dates[0].description,
+					name: instance.getMessage(interaction, "MORE_INFO"),
+					value: `${datePropertiesText}`,
+					inline: true,
 				})
 
 				button = new ButtonBuilder()
-					.setCustomId(`excluir ${dates[0]._id}`)
+					.setCustomId(`excluir ${date._id}`)
 					.setStyle(ButtonStyle.Danger)
 					.setLabel(instance.getMessage(interaction, "DELETE"))
 					.setEmoji("🗑️")
 
-				const row = new ActionRowBuilder().addComponents(button)
+				if (dates.length > 1) {
+					embed.data.fields[0].value +=
+						dates.length - 1 - index > 0
+							? instance.getMessage(interaction, "AND_WITH_SAME_NAME", {
+									COUNT: dates.length - 1 - index,
+							  })
+							: ""
+				}
 
-				await interaction.editReply({
-					embeds: [embed],
-					components: [row],
-				})
-			}
+				embeds.push(embed)
+				deleteButtons.push(button)
+			})
+
+			const paginator = paginate()
+			paginator.add(...embeds)
+			paginator.addComponents(...deleteButtons)
+			const ids = [`${Date.now()}__left`, `${Date.now()}__right`]
+			paginator.setTraverser([
+				new ButtonBuilder().setEmoji("⬅️").setCustomId(ids[0]).setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder().setEmoji("➡️").setCustomId(ids[1]).setStyle(ButtonStyle.Secondary),
+			])
+
+			const message = await interaction.editReply(paginator.components())
+
+			message.createMessageComponentCollector({ time: 3600000 }).on("collect", async (i) => {
+				if (i.customId === ids[0]) {
+					await paginator.back()
+					await i.update(paginator.components())
+				} else if (i.customId === ids[1]) {
+					await paginator.next()
+					await i.update(paginator.components())
+				}
+			})
 		} catch (error) {
 			console.error(`ver: ${error}`)
 			await interaction.editReply(instance.getMessage(interaction, "EXCEPTION"))
